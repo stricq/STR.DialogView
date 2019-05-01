@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWpf>true</UseWpf>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>2.0.0-dev4.19120.1</Version>
+    <Authors>stricq</Authors>
+    <Company>STR Programming Services</Company>
+    <PackageId>STR.DialogView</PackageId>
+    <Description>Common MVVM Dialogs for other STR WPF applications.</Description>
+    <Copyright>Copyright 2019 STR Programming Services</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/stricq/STR.DialogView</PackageProjectUrl>
+    <PackageTags>str mvvm dialog</PackageTags>
+    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
+    <ApplicationIcon />
+    <Win32Resource />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Views\DialogView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Constants\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="STR.MvvmCommon" Version="2.0.0-dev4.19120.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\DialogView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>

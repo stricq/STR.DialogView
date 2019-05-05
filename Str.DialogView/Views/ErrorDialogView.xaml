@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="Str.DialogView.Views.ErrorDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Str.DialogView.ViewModels"
+             xmlns:mvvm="http://schemas.stricq.com/mvvmcommon"
+             mvvm:ViewModelLocator.ComposedViewModel="Str.DialogView.ErrorDialogViewModel"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance vm:ErrorDialogViewModel}" d:DesignWidth="500" d:DesignHeight="500">
+
+  <Grid Margin="6">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <TextBlock Grid.Row="0" Text="{Binding Path=Index}" Margin="3" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" />
+
+    <HeaderedContentControl Grid.Row="1" Header="{Binding Path=HeaderText}" Margin="0,6,0,0" Style="{DynamicResource ShortHeaderedContentStyle}">
+      <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <TextBlock Name="HeaderTextBlock" Text="{Binding Path=MessageText}" />
+      </ScrollViewer>
+    </HeaderedContentControl>
+
+    <HeaderedContentControl Grid.Row="2" Header="Stack Trace" Margin="0,6,0,0" Visibility="{Binding Path=Visibility}" Style="{DynamicResource TallHeaderedContentStyle}">
+      <TextBox Name="StackTextBlock" Text="{Binding Path=StackTrace, Mode=OneWay}" Margin="6" BorderThickness="0" Background="Transparent" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+    </HeaderedContentControl>
+
+    <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,6,0,0" HorizontalAlignment="Right">
+
+      <Button Content="Clear"     Command="{Binding Path=Clear}"    Margin="0,0,0,0" Width="75" />
+      <Button Content="Previous"  Command="{Binding Path=Previous}" Margin="6,0,0,0" Width="75" />
+      <Button Content="Next"      Command="{Binding Path=Next}"     Margin="6,0,0,0" Width="75" />
+      <Button Content="OK"        Command="{Binding Path=Ok}"       Margin="6,0,0,0" Width="75" IsCancel="True" />
+      <Button Content="Clear All" Command="{Binding Path=ClearAll}" Margin="6,0,0,0" Width="75" IsDefault="True" />
+
+    </StackPanel>
+
+  </Grid>
+
+</UserControl>

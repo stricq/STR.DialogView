@@ -20,19 +20,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Themes\Generic.xaml" />
     <None Remove="Views\DialogView.xaml" />
+    <None Remove="Views\ErrorDialogView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Constants\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="STR.MvvmCommon" Version="2.0.0-dev4.19120.2" />
+    <PackageReference Include="STR.MvvmCommon" Version="2.0.0-dev4.19124.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Views\DialogView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ErrorDialogView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

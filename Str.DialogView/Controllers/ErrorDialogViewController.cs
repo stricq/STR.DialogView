@@ -65,7 +65,7 @@ namespace Str.DialogView.Controllers {
     #region Messages
 
     private void RegisterMessages() {
-      messenger.Register<ApplicationErrorMessage>(this, OnApplicationError);
+      messenger.Register<ApplicationErrorMessage>(this, true, OnApplicationError);
     }
 
     private void OnApplicationError(ApplicationErrorMessage message) {

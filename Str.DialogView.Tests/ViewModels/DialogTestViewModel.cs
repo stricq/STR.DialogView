@@ -13,6 +13,8 @@ namespace Str.DialogView.Tests.ViewModels {
 
     private RelayCommand errorDialog;
 
+    private RelayCommand inputBoxDialog;
+
     #endregion Private Fields
 
     #region Properties
@@ -20,6 +22,11 @@ namespace Str.DialogView.Tests.ViewModels {
     public RelayCommand ErrorDialog {
       get => errorDialog;
       set => SetField(ref errorDialog, value, () => ErrorDialog);
+    }
+
+    public RelayCommand InputBoxDialog {
+      get => inputBoxDialog;
+      set => SetField(ref inputBoxDialog, value, () => InputBoxDialog);
     }
 
     #endregion Properties

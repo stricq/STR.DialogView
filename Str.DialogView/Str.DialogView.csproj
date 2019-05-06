@@ -23,6 +23,7 @@
     <None Remove="Themes\Generic.xaml" />
     <None Remove="Views\DialogView.xaml" />
     <None Remove="Views\ErrorDialogView.xaml" />
+    <None Remove="Views\InputBoxView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\ErrorDialogView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\InputBoxView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

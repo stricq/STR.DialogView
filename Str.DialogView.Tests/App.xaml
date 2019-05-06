@@ -9,6 +9,7 @@
 
         <ResourceDictionary Source="Resources/HeaderedContentStyle.xaml" />
         <ResourceDictionary Source="Resources/ButtonStyle.xaml" />
+        <ResourceDictionary Source="Resources/ScrollViewerStyle.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Application.Resources>

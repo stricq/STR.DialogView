@@ -22,6 +22,8 @@
       <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="{StaticResource ContentControlBorderColor}">
         <StackPanel Orientation="Horizontal" Margin="6">
           <Button Content="Error Dialog" Width="100" Height="25" Command="{Binding Path=ErrorDialog}" />
+
+          <Button Content="Input Box" Margin="6,0,0,0" Width="100" Height="25" Command="{Binding Path=InputBoxDialog}" />
         </StackPanel>
       </Border>
 

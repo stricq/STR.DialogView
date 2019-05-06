@@ -10,6 +10,7 @@
     <None Remove="Resources\ButtonStyle.xaml" />
     <None Remove="Resources\ColorsAndGradients.xaml" />
     <None Remove="Resources\HeaderedContentStyle.xaml" />
+    <None Remove="Resources\ScrollViewerStyle.xaml" />
     <None Remove="Views\DialogTestView.xaml" />
   </ItemGroup>
 

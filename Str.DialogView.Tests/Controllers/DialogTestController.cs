@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using Str.Common.Messages;
 
+using Str.DialogView.Messages;
 using Str.DialogView.Tests.ViewModels;
 
 using Str.MvvmCommon.Contracts;
@@ -50,6 +51,8 @@ namespace Str.DialogView.Tests.Controllers {
 
     private void RegisterCommands() {
       viewModel.ErrorDialog = new RelayCommand(OnErrorDialogExecute);
+
+      viewModel.InputBoxDialog = new RelayCommand(OnInputBoxDialogExecute);
     }
 
     private void OnErrorDialogExecute() {
@@ -62,8 +65,14 @@ namespace Str.DialogView.Tests.Controllers {
         }
       }
       catch(Exception ex) {
+        messenger.Send(new ApplicationErrorMessage { HeaderText = "This is the Header", ErrorMessage = "This is the error message.", Exception = ex });
+
         messenger.Send(new ApplicationErrorMessage { Exception = ex });
       }
+    }
+
+    private void OnInputBoxDialogExecute() {
+      messenger.Send(new InputBoxDialogMessage { Header = "Input A String", DefaultInput = "Some default text.", Message = "Please be so kind as to enter some text." });
     }
 
     #endregion Commands

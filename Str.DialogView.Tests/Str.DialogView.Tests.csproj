@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\ButtonStyle.xaml" />
+    <None Remove="Resources\ColorsAndGradients.xaml" />
+    <None Remove="Resources\HeaderedContentStyle.xaml" />
+    <None Remove="Views\DialogTestView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Str.DialogView\Str.DialogView.csproj" />
+  </ItemGroup>
+
+</Project>

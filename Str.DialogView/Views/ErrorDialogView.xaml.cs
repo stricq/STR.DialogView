@@ -1,8 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 using System.Diagnostics.CodeAnalysis;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 using Str.DialogView.Constants;
 using Str.DialogView.Contracts;
@@ -25,28 +23,6 @@ namespace Str.DialogView.Views {
     }
 
     #endregion Constructor
-
-    #region Dependency Properties
-
-    #region Foreground Property
-
-    public new static readonly DependencyProperty ForegroundProperty = DependencyProperty.Register("Foreground", typeof(Brush), typeof(DialogView), new PropertyMetadata(Brushes.Black, OnForegroundPropertyChanged));
-
-    private static void OnForegroundPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e) {
-      if (!(sender is ErrorDialogView edv) || !(e.NewValue is Brush brush)) return;
-
-      edv.HeaderTextBlock.Foreground = brush;
-      edv.StackTextBlock.Foreground  = brush;
-    }
-
-    public new Brush Foreground {
-      get => GetValue(ForegroundProperty) as Brush;
-      set => SetValue(ForegroundProperty, value);
-    }
-
-    #endregion Foreground Property
-
-    #endregion Dependency Properties
 
   }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ using Str.MvvmCommon.Core;
 
 namespace Str.DialogView.Controllers {
 
+  [Export(typeof(IController))]
   [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "This is a library.")]
   public class ErrorDialogViewController : IController {
 
@@ -35,6 +37,7 @@ namespace Str.DialogView.Controllers {
 
     #region Constructor
 
+    [ImportingConstructor]
     public ErrorDialogViewController(ErrorDialogViewModel viewModel, IMessenger messenger) {
       this.viewModel = viewModel;
 
@@ -185,7 +188,7 @@ namespace Str.DialogView.Controllers {
           viewModel.HeaderText  = errors[index].HeaderText ?? "Application Error";
 
           if (errors[index].Exception != null) {
-            viewModel.MessageText = $"{errors[index].ErrorMessage}{(String.IsNullOrEmpty(errors[index].ErrorMessage) ? String.Empty : "\n\n")}{errors[index].Exception.Message}";
+            viewModel.MessageText = String.IsNullOrEmpty(errors[index].ErrorMessage) ? errors[index].Exception.Message : errors[index].ErrorMessage;
             viewModel.Visibility  = Visibility.Visible;
 
             StringBuilder str = new StringBuilder();

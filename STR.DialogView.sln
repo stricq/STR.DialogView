@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		STR.DialogView.sln.DotSettings = STR.DialogView.sln.DotSettings
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Str.DialogView.Tests", "Str.DialogView.Tests\Str.DialogView.Tests.csproj", "{4DA81BDC-78E0-40A6-B59E-A5968F0C3697}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{902C1476-1DA7-4F4F-A5CA-35A557B86A82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{902C1476-1DA7-4F4F-A5CA-35A557B86A82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{902C1476-1DA7-4F4F-A5CA-35A557B86A82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DA81BDC-78E0-40A6-B59E-A5968F0C3697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DA81BDC-78E0-40A6-B59E-A5968F0C3697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DA81BDC-78E0-40A6-B59E-A5968F0C3697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DA81BDC-78E0-40A6-B59E-A5968F0C3697}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

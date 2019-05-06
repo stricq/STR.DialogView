@@ -20,12 +20,12 @@
 
     <HeaderedContentControl Grid.Row="1" Header="{Binding Path=HeaderText}" Margin="0,6,0,0" Style="{DynamicResource ShortHeaderedContentStyle}">
       <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <TextBlock Name="HeaderTextBlock" Text="{Binding Path=MessageText}" />
+        <TextBlock Text="{Binding Path=MessageText}" />
       </ScrollViewer>
     </HeaderedContentControl>
 
     <HeaderedContentControl Grid.Row="2" Header="Stack Trace" Margin="0,6,0,0" Visibility="{Binding Path=Visibility}" Style="{DynamicResource TallHeaderedContentStyle}">
-      <TextBox Name="StackTextBlock" Text="{Binding Path=StackTrace, Mode=OneWay}" Margin="6" BorderThickness="0" Background="Transparent" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+      <TextBox Text="{Binding Path=StackTrace, Mode=OneWay}" Margin="6" BorderThickness="0" Background="Transparent" Foreground="{DynamicResource ForegroundColor}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
     </HeaderedContentControl>
 
     <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,6,0,0" HorizontalAlignment="Right">

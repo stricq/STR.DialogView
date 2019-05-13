@@ -24,10 +24,11 @@
     <None Remove="Views\DialogView.xaml" />
     <None Remove="Views\ErrorDialogView.xaml" />
     <None Remove="Views\InputBoxView.xaml" />
+    <None Remove="Views\MessageBoxDialogView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="STR.MvvmCommon" Version="2.0.0-dev4.19124.1" />
+    <PackageReference Include="STR.MvvmCommon" Version="2.0.0-dev5.fdb40661cd" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +39,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\InputBoxView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MessageBoxDialogView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

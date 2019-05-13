@@ -21,7 +21,7 @@ using Str.MvvmCommon.Contracts;
 namespace Str.DialogView.Controllers {
 
   [Export(typeof(IController))]
-  public class DialogViewController : IController {
+  public class DialogController : IController {
 
     #region Private Fields
 
@@ -36,7 +36,7 @@ namespace Str.DialogView.Controllers {
     #region Constructor
 
     [ImportingConstructor]
-    public DialogViewController(DialogViewModel viewModel, IMessenger messenger, [ImportMany] IEnumerable<Lazy<IDialogViewLocator, IViewTagMetadata>> dialogViews) {
+    public DialogController(DialogViewModel viewModel, IMessenger messenger, [ImportMany] IEnumerable<Lazy<IDialogViewLocator, IViewTagMetadata>> dialogViews) {
       this.viewModel = viewModel;
 
       this.messenger = messenger;

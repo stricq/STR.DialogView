@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Str.DialogView.Views.MessageBoxDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Str.DialogView.ViewModels"
+             xmlns:mvvm="http://schemas.stricq.com/mvvmcommon"
+             mvvm:ViewModelLocator.ComposedViewModel="Str.DialogView.MessageBoxDialogViewModel"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="300" d:DataContext="{d:DesignInstance vm:MessageBoxDialogViewModel}">
+
+  <Grid Margin="6">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <HeaderedContentControl Grid.Row="0" Header="{Binding Path=Header}" Margin="0,0,0,6" Style="{DynamicResource ShortHeaderedContentStyle}">
+      <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <TextBlock Text="{Binding Path=Message}" />
+      </ScrollViewer>
+    </HeaderedContentControl>
+
+    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+      <Button Content="{Binding Path=OkText}"     Margin="6,0,0,0" MinWidth="50" Command="{Binding Path=Ok}"     IsDefault="True" />
+
+      <Button Content="{Binding Path=CancelText}" Margin="6,0,0,0" MinWidth="50" Command="{Binding Path=Cancel}" IsCancel="True" Visibility="{Binding Path=IsCancelVisible}" />
+    </StackPanel>
+
+  </Grid>
+
+</UserControl>

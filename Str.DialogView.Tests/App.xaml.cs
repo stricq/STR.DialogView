@@ -5,6 +5,8 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 
+using Str.DialogView.Tests.Views;
+
 using Str.MvvmCommon.Contracts;
 using Str.MvvmCommon.Core;
 
@@ -30,6 +32,20 @@ namespace Str.DialogView.Tests {
     #endregion Constructor
 
     #region Overrides
+
+    private void Application_Startup(object sender, StartupEventArgs e) {
+      DialogTestView window = new DialogTestView();
+
+      window.Show();
+      window.Hide();
+
+      window = new DialogTestView();
+
+      // Don't use InitializeComponent() in MainWindow.xaml.cs to avoid double initialization
+      window.InitializeComponent();
+
+      window.Show();
+    }
 
     protected override void OnStartup(StartupEventArgs args) {
       base.OnStartup(args);

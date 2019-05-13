@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 using System.Threading.Tasks;
+using System.Windows;
 
 using Str.DialogView.Constants;
 using Str.DialogView.Messages;
@@ -12,22 +13,22 @@ using Str.MvvmCommon.Core;
 namespace Str.DialogView.Controllers {
 
   [Export(typeof(IController))]
-  public class InputBoxController : IController {
+  public class MessageBoxDialogController : IController {
 
     #region Private Fields
 
-    private InputBoxDialogMessage message;
-
-    private readonly InputBoxViewModel viewModel;
+    private MessageBoxDialogMessage message;
 
     private readonly IMessenger messenger;
+
+    private readonly MessageBoxDialogViewModel viewModel;
 
     #endregion Private Fields
 
     #region Constructor
 
     [ImportingConstructor]
-    public InputBoxController(InputBoxViewModel viewModel, IMessenger messenger) {
+    public MessageBoxDialogController(MessageBoxDialogViewModel viewModel, IMessenger messenger) {
       this.viewModel = viewModel;
 
       this.messenger = messenger;
@@ -52,17 +53,17 @@ namespace Str.DialogView.Controllers {
     #region Messages
 
     private void RegisterMessages() {
-      messenger.Register<InputBoxDialogMessage>(this, true, OnInputBoxExecute);
+      messenger.Register<MessageBoxDialogMessage>(this, true, OnDialogMessage);
     }
 
-    private void OnInputBoxExecute(InputBoxDialogMessage dialogMessage) {
+    private void OnDialogMessage(MessageBoxDialogMessage dialogMessage) {
       if (dialogMessage == null) return;
 
       message = dialogMessage;
 
       RefreshMessage();
 
-      messenger.Send(new OpenDialogMessage { Name = DialogNames.InputBoxDialog });
+      messenger.Send(new OpenDialogMessage { Name = DialogNames.MessageBoxDialog });
     }
 
     #endregion Messages
@@ -70,14 +71,14 @@ namespace Str.DialogView.Controllers {
     #region Commands
 
     private void RegisterCommands() {
-      viewModel.Ok     = new RelayCommandAsync(OnOkExecute);
+      viewModel.Ok = new RelayCommandAsync(OnOkExecute);
+
       viewModel.Cancel = new RelayCommandAsync(OnCancelExecute);
     }
 
     private async Task OnOkExecute() {
       messenger.Send(new CloseDialogMessage());
 
-      message.Input    = viewModel.InputText;
       message.IsCancel = false;
 
       if (message.Callback != null) message.Callback(message);
@@ -87,7 +88,6 @@ namespace Str.DialogView.Controllers {
     private async Task OnCancelExecute() {
       messenger.Send(new CloseDialogMessage());
 
-      message.Input    = viewModel.InputText;
       message.IsCancel = true;
 
       if (message.Callback != null) message.Callback(message);
@@ -99,12 +99,13 @@ namespace Str.DialogView.Controllers {
     #region Private Methods
 
     private void RefreshMessage() {
-      viewModel.HeaderText  = message.Header;
-      viewModel.MessageText = message.Message;
-      viewModel.InputText   = message.DefaultInput;
+      viewModel.Header  = message.Header;
+      viewModel.Message = message.Message;
 
       viewModel.OkText     = message.OkText     ?? "Ok";
       viewModel.CancelText = message.CancelText ?? "Cancel";
+
+      viewModel.IsCancelVisible = message.HasCancel ? Visibility.Visible : Visibility.Collapsed;
     }
 
     #endregion Private Methods

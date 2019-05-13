@@ -21,7 +21,7 @@ namespace Str.DialogView.Controllers {
 
   [Export(typeof(IController))]
   [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "This is a library.")]
-  public class ErrorDialogViewController : IController {
+  public class ErrorDialogController : IController {
 
     #region Private Fields
 
@@ -38,7 +38,7 @@ namespace Str.DialogView.Controllers {
     #region Constructor
 
     [ImportingConstructor]
-    public ErrorDialogViewController(ErrorDialogViewModel viewModel, IMessenger messenger) {
+    public ErrorDialogController(ErrorDialogViewModel viewModel, IMessenger messenger) {
       this.viewModel = viewModel;
 
       this.messenger = messenger;
@@ -50,7 +50,7 @@ namespace Str.DialogView.Controllers {
 
     #region IController Implementation
 
-    public int InitializePriority { get; } = 110;
+    public int InitializePriority { get; } = 90;
 
     public async Task InitializeAsync() {
       RegisterMessages();

@@ -15,6 +15,9 @@ namespace Str.DialogView.Tests.ViewModels {
 
     private RelayCommand inputBoxDialog;
 
+    private RelayCommand messageBoxDialog1;
+    private RelayCommand messageBoxDialog2;
+
     #endregion Private Fields
 
     #region Properties
@@ -27,6 +30,16 @@ namespace Str.DialogView.Tests.ViewModels {
     public RelayCommand InputBoxDialog {
       get => inputBoxDialog;
       set => SetField(ref inputBoxDialog, value, () => InputBoxDialog);
+    }
+
+    public RelayCommand MessageBoxDialog1 {
+      get => messageBoxDialog1;
+      set => SetField(ref messageBoxDialog1, value, () => MessageBoxDialog1);
+    }
+
+    public RelayCommand MessageBoxDialog2 {
+      get => messageBoxDialog2;
+      set => SetField(ref messageBoxDialog2, value, () => MessageBoxDialog2);
     }
 
     #endregion Properties

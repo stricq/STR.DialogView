@@ -28,22 +28,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="STR.MvvmCommon" Version="2.0.0-dev5.19139.1" />
+    <PackageReference Include="STR.MvvmCommon" Version="2.0.0-dev6.19166.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\DialogView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\ErrorDialogView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\InputBoxView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\MessageBoxDialogView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Update="Views\DialogView.xaml.cs" />
+    <Compile Update="Views\ErrorDialogView.xaml.cs" />
+    <Compile Update="Views\InputBoxView.xaml.cs" />
+    <Compile Update="Views\MessageBoxDialogView.xaml.cs" />
   </ItemGroup>
 
 </Project>

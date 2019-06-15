@@ -28,13 +28,13 @@ pipeline {
     stage('Pack Debug') {
       when { branch 'master' }
       steps {
-        bat 'dotnet pack --no-build --no-restore --configuration Debug --output nupkgs'
+        bat 'dotnet pack STR.DialogView\\STR.DialogView.csproj --no-build --no-restore --configuration Debug --output nupkgs'
       }
     }
     stage('Pack Release') {
       when { branch 'release' }
       steps {
-        bat 'dotnet pack --no-build --no-restore --configuration Release --output nupkgs'
+        bat 'dotnet pack STR.DialogView\\STR.DialogView.csproj --no-build --no-restore --configuration Release --output nupkgs'
       }
     }
     stage('Publish') {

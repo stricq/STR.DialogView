@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWpf>true</UseWpf>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>2.0.0-dev7.19215.1</Version>
+    <Version>2.0.0-dev7.19216.1</Version>
     <Authors>stricq</Authors>
     <Company>STR Programming Services</Company>
     <PackageId>STR.DialogView</PackageId>
@@ -13,7 +13,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/stricq/STR.DialogView</PackageProjectUrl>
     <PackageTags>str mvvm dialog</PackageTags>
-    <PackageReleaseNotes>Updated to latest STR.Common.</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated to latest STR.MvvmCommon.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <ApplicationIcon />
     <Win32Resource />

@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWpf>true</UseWpf>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>2.0.0-dev8.19227.1</Version>
+    <Version>2.0.0</Version>
     <Authors>stricq</Authors>
     <Company>STR Programming Services</Company>
     <PackageId>STR.DialogView</PackageId>
@@ -12,8 +12,8 @@
     <Copyright>Copyright 2019 STR Programming Services</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/stricq/STR.DialogView</PackageProjectUrl>
-    <PackageTags>str mvvm dialog</PackageTags>
-    <PackageReleaseNotes>Updated for preview 8.</PackageReleaseNotes>
+    <PackageTags>str mvvm dialog wpf</PackageTags>
+    <PackageReleaseNotes>Update for .Net Core 3.0.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <ApplicationIcon />
     <Win32Resource />
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="STR.MvvmCommon" Version="2.0.0-dev8.19226.1" />
+    <PackageReference Include="STR.MvvmCommon" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>

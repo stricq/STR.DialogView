@@ -50,7 +50,7 @@ namespace Str.DialogView.Controllers {
 
     public int InitializePriority { get; } = 100;
 
-    public async Task InitializeAsync() {
+    public Task InitializeAsync() {
       viewModel.Visibility = Visibility.Collapsed;
 
       viewModel.DialogBorderColor = Brushes.BlueViolet;
@@ -59,7 +59,7 @@ namespace Str.DialogView.Controllers {
 
       RegisterMessages();
 
-      await Task.CompletedTask;
+      return Task.CompletedTask;
     }
 
     #endregion IController Implementation

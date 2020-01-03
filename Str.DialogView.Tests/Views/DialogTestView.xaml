@@ -7,6 +7,8 @@
         xmlns:vm="clr-namespace:Str.DialogView.Tests.ViewModels"
         xmlns:mvvm="http://schemas.stricq.com/mvvmcommon"
         mvvm:ViewModelLocator.ComposedViewModel="DialogTestViewModel"
+        mvvm:FrameworkElementBehaviors.InitializedCommand="{Binding Path=Initialized}"
+        mvvm:FrameworkElementBehaviors.LoadedCommand="{Binding Path=Loaded}"
         mc:Ignorable="d" d:DataContext="{d:DesignInstance vm:DialogTestViewModel}"
         SnapsToDevicePixels="True" UseLayoutRounding="True"
         Background="{StaticResource BackgroundColor}"

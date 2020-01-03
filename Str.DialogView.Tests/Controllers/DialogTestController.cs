@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Threading.Tasks;
+using System.Windows;
 
 using Str.Common.Messages;
 
@@ -39,10 +40,10 @@ namespace Str.DialogView.Tests.Controllers {
 
     public int InitializePriority { get; } = 1000;
 
-    public async Task InitializeAsync() {
+    public Task InitializeAsync() {
       RegisterCommands();
 
-      await Task.CompletedTask;
+      return Task.CompletedTask;
     }
 
     #endregion IController Implementation
@@ -50,6 +51,9 @@ namespace Str.DialogView.Tests.Controllers {
     #region Commands
 
     private void RegisterCommands() {
+      viewModel.Initialized = new RelayCommandAsync<EventArgs>(OnInitializedAsync);
+      viewModel.Loaded      = new RelayCommandAsync<RoutedEventArgs>(OnLoadedAsync);
+
       viewModel.ErrorDialog = new RelayCommand(OnErrorDialogExecute);
 
       viewModel.InputBoxDialog = new RelayCommand(OnInputBoxDialogExecute);
@@ -57,6 +61,18 @@ namespace Str.DialogView.Tests.Controllers {
       viewModel.MessageBoxDialog1 = new RelayCommand(OnMessageBoxDialog1Execute);
 
       viewModel.MessageBoxDialog2 = new RelayCommand(OnMessageBoxDialog2Execute);
+    }
+
+    private Task OnInitializedAsync(EventArgs ea) {
+//    MessageBox.Show("OnInitialized");
+
+      return Task.CompletedTask;
+    }
+
+    private Task OnLoadedAsync(RoutedEventArgs rea) {
+//    MessageBox.Show("OnLoaded");
+
+      return Task.CompletedTask;
     }
 
     private void OnErrorDialogExecute() {

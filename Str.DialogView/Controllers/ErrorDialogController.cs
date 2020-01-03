@@ -52,12 +52,12 @@ namespace Str.DialogView.Controllers {
 
     public int InitializePriority { get; } = 90;
 
-    public async Task InitializeAsync() {
+    public Task InitializeAsync() {
       RegisterMessages();
 
       RegisterCommands();
 
-      await Task.CompletedTask;
+      return Task.CompletedTask;
     }
 
     #endregion IController Implementation

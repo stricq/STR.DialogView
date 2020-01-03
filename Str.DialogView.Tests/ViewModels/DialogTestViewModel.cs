@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
+using System.Windows;
 
 using Str.MvvmCommon.Core;
 
@@ -11,6 +13,9 @@ namespace Str.DialogView.Tests.ViewModels {
 
     #region Private Fieldss
 
+    private RelayCommandAsync<EventArgs> initialized;
+    private RelayCommandAsync<RoutedEventArgs> loaded;
+
     private RelayCommand errorDialog;
 
     private RelayCommand inputBoxDialog;
@@ -21,6 +26,16 @@ namespace Str.DialogView.Tests.ViewModels {
     #endregion Private Fields
 
     #region Properties
+
+    public RelayCommandAsync<EventArgs> Initialized {
+      get => initialized;
+      set => SetField(ref initialized, value, () => Initialized);
+    }
+
+    public RelayCommandAsync<RoutedEventArgs> Loaded {
+      get => loaded;
+      set => SetField(ref loaded, value, () => Loaded);
+    }
 
     public RelayCommand ErrorDialog {
       get => errorDialog;

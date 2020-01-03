@@ -1,6 +1,9 @@
 ﻿using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using System.Windows;
+
+using Str.Common.Extensions;
 
 using Str.DialogView.Constants;
 using Str.DialogView.Messages;
@@ -13,6 +16,7 @@ using Str.MvvmCommon.Core;
 namespace Str.DialogView.Controllers {
 
   [Export(typeof(IController))]
+  [SuppressMessage("ReSharper", "AsyncConverter.CanBeUseAsyncMethodHighlighting", Justification = "Cannot be async as this is the main thread.")]
   public class MessageBoxDialogController : IController {
 
     #region Private Fields
@@ -40,12 +44,12 @@ namespace Str.DialogView.Controllers {
 
     public int InitializePriority { get; } = 90;
 
-    public async Task InitializeAsync() {
+    public Task InitializeAsync() {
       RegisterMessages();
 
       RegisterCommands();
 
-      await Task.CompletedTask;
+      return Task.CompletedTask;
     }
 
     #endregion IController Implementation
@@ -71,27 +75,27 @@ namespace Str.DialogView.Controllers {
     #region Commands
 
     private void RegisterCommands() {
-      viewModel.Ok = new RelayCommandAsync(OnOkExecute);
+      viewModel.Ok = new RelayCommandAsync(OnOkExecuteAsync);
 
-      viewModel.Cancel = new RelayCommandAsync(OnCancelExecute);
+      viewModel.Cancel = new RelayCommandAsync(OnCancelExecuteAsync);
     }
 
-    private async Task OnOkExecute() {
+    private async Task OnOkExecuteAsync() {
       messenger.Send(new CloseDialogMessage());
 
       message.IsCancel = false;
 
       if (message.Callback != null) message.Callback(message);
-      else if (message.CallbackAsync != null) await message.CallbackAsync(message);
+      else if (message.CallbackAsync != null) await message.CallbackAsync(message).Fire();
     }
 
-    private async Task OnCancelExecute() {
+    private async Task OnCancelExecuteAsync() {
       messenger.Send(new CloseDialogMessage());
 
       message.IsCancel = true;
 
       if (message.Callback != null) message.Callback(message);
-      else if (message.CallbackAsync != null) await message.CallbackAsync(message);
+      else if (message.CallbackAsync != null) await message.CallbackAsync(message).Fire();
     }
 
     #endregion Commands

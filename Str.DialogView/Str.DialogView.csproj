@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWpf>true</UseWpf>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>2.1.0</Version>
+    <Version>1.0.0</Version>
     <Authors>stricq</Authors>
     <Company>STR Programming Services</Company>
     <PackageId>STR.DialogView</PackageId>
@@ -13,10 +13,16 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/stricq/STR.DialogView</PackageProjectUrl>
     <PackageTags>str mvvm dialog wpf</PackageTags>
-    <PackageReleaseNotes>Update for .Net Core 3.1.</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <ApplicationIcon />
     <Win32Resource />
+    <RepositoryUrl>https://github.com/stricq/STR.DialogView</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,7 +34,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="STR.MvvmCommon" Version="3.0.0-beta.20019.10104" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="STR.MvvmCommon" Version="3.0.0-hostbuilder.200191620" />
   </ItemGroup>
 
   <ItemGroup>

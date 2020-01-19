@@ -71,7 +71,7 @@ namespace Str.DialogView.Controllers {
       TaskHelper.RunOnUiThreadAsync(() => {
         RefreshErrors(); // This probably doesn't need to explicitly be on the ui thread...
 
-        if (message.OpenErrorWindow) messenger.Send(new OpenDialogMessage { DialogType = typeof(ErrorDialogView), IsError = true });
+        if (message.OpenErrorWindow) messenger.Send(new OpenDialogMessage { DialogViewType = typeof(ErrorDialogView), IsError = true });
       }).FireAndForget();
     }
 

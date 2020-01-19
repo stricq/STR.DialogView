@@ -63,7 +63,7 @@ namespace Str.DialogView.Controllers {
 
       RefreshMessage();
 
-      messenger.Send(new OpenDialogMessage { DialogType = typeof(InputBoxView)});
+      messenger.Send(new OpenDialogMessage { DialogViewType = typeof(InputBoxView)});
     }
 
     #endregion Messages

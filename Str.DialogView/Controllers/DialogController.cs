@@ -69,7 +69,7 @@ namespace Str.DialogView.Controllers {
     }
 
     private void OnOpenDialog(OpenDialogMessage message) {
-      IDialogViewModel model = dialogViews.Where(dv => dv.GetType() == message.DialogType).Select(dv => dv.DataContext as IDialogViewModel).FirstOrDefault();
+      IDialogViewModel model = dialogViews.Where(dv => dv.GetType() == message.DialogViewType).Select(dv => dv.DataContext as IDialogViewModel).FirstOrDefault();
 
       if (model == null) return;
 

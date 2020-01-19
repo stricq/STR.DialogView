@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="STR.MvvmCommon" Version="2.1.1" />
+    <PackageReference Include="STR.MvvmCommon" Version="3.0.0-beta.20019.10104" />
   </ItemGroup>
 
   <ItemGroup>

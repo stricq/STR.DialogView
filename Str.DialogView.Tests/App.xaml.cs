@@ -1,9 +1,14 @@
 ﻿using System;
-using System.ComponentModel.Composition.Hosting;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Windows;
+
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+using Str.DialogView.Extensions;
+
+using Str.DialogView.Tests.Controllers;
+using Str.DialogView.Tests.ViewModels;
+using Str.DialogView.Tests.Views;
 
 using Str.MvvmCommon.Contracts;
 using Str.MvvmCommon.Core;
@@ -24,7 +29,7 @@ namespace Str.DialogView.Tests {
     public App() {
       container = new MvvmContainer();
 
-      container.Initialize(() => new AggregateCatalog(new DirectoryCatalog(Directory.GetCurrentDirectory(), "Str.*.dll")));
+      container.Initialize(ConfigureServices);
     }
 
     #endregion Constructor
@@ -32,7 +37,7 @@ namespace Str.DialogView.Tests {
     #region Overrides
 
     protected override void OnStartup(StartupEventArgs args) {
-      base.OnStartup(args);
+      container.OnStartup();
 
       try {
         container.InitializeControllers();
@@ -40,14 +45,34 @@ namespace Str.DialogView.Tests {
       catch(Exception ex) {
         while(ex.InnerException != null) ex = ex.InnerException;
 
-        if (ex is ReflectionTypeLoadException rtle) {
-          MessageBox.Show(String.Join("\n", rtle.LoaderExceptions.Select(le => le.Message)), "MEF Composition Error - Reflection Type Load Exception");
-        }
-        else MessageBox.Show($"{ex.Message}\n\n{ex.GetType().FullName}", "MEF Composition Error");
+        MessageBox.Show($"{ex.Message}\n\n{ex.GetType().FullName}", "Dependency Injection Error");
       }
+
+      container.Get<DialogTestView>().Show();
+
+      base.OnStartup(args);
+    }
+
+    protected override void OnExit(ExitEventArgs e) {
+      container.OnExit();
+
+      base.OnExit(e);
     }
 
     #endregion Overrides
+
+    #region Private Methods
+
+    private static void ConfigureServices(IServiceCollection services, IConfiguration configuration) {
+      services.AddStrDialogView();
+
+      services.AddSingleton<DialogTestView>();
+
+      services.AddSingleton<IController, DialogTestController>();
+      services.AddSingleton<DialogTestViewModel>();
+    }
+
+    #endregion Private Methods
 
   }
 

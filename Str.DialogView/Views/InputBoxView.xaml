@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Str.DialogView.ViewModels"
              xmlns:mvvm="http://schemas.stricq.com/mvvmcommon"
-             mvvm:ViewModelLocator.ComposedViewModel="Str.DialogView.InputBoxViewModel"
+             mvvm:ViewModelLocator.ViewModel="vm:InputBoxViewModel"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance vm:InputBoxViewModel}" d:DesignWidth="300" d:DesignHeight="300">
 
   <Grid Margin="6">

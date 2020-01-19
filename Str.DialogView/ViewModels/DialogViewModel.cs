@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel.Composition;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Media;
@@ -11,8 +10,6 @@ using Str.MvvmCommon.Core;
 
 namespace Str.DialogView.ViewModels {
 
-  [Export]
-  [ViewModel("Str.DialogView.DialogViewModel")]
   [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "This is a library.")]
   public class DialogViewModel : ObservableObject {
 

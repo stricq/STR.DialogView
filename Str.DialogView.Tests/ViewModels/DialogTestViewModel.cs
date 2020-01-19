@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.Composition;
 using System.Windows;
 
 using Str.MvvmCommon.Core;
@@ -7,8 +6,6 @@ using Str.MvvmCommon.Core;
 
 namespace Str.DialogView.Tests.ViewModels {
 
-  [Export]
-  [ViewModel("DialogTestViewModel")]
   public class DialogTestViewModel : ObservableObject {
 
     #region Private Fieldss

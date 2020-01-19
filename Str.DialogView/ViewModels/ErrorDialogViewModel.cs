@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows;
+﻿using System.Windows;
 
 using Str.DialogView.Contracts;
 
@@ -8,8 +7,6 @@ using Str.MvvmCommon.Core;
 
 namespace Str.DialogView.ViewModels {
 
-  [Export]
-  [ViewModel("Str.DialogView.ErrorDialogViewModel")]
   public class ErrorDialogViewModel : ObservableObject, IDialogViewModel {
 
     #region Private Fields

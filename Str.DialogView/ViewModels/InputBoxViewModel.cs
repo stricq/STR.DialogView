@@ -1,14 +1,10 @@
-﻿using System.ComponentModel.Composition;
-
-using Str.DialogView.Contracts;
+﻿using Str.DialogView.Contracts;
 
 using Str.MvvmCommon.Core;
 
 
 namespace Str.DialogView.ViewModels {
 
-  [Export]
-  [ViewModel("Str.DialogView.InputBoxViewModel")]
   public class InputBoxViewModel : ObservableObject, IDialogViewModel {
 
     #region Private Fields

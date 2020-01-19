@@ -6,8 +6,8 @@ using System.Windows.Media;
 
 namespace Str.DialogView.Views {
 
-  [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "This is a library.")]
   [SuppressMessage("ReSharper", "RedundantExtendsListEntry", Justification = "Resharper is wrong, the base class must be specified.")]
+  [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "This is a library.")]
   public partial class DialogView : UserControl {
 
     #region Constructor

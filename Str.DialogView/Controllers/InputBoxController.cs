@@ -1,12 +1,11 @@
-﻿using System.ComponentModel.Composition;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 using Str.Common.Extensions;
 
-using Str.DialogView.Constants;
 using Str.DialogView.Messages;
 using Str.DialogView.ViewModels;
+using Str.DialogView.Views;
 
 using Str.MvvmCommon.Contracts;
 using Str.MvvmCommon.Core;
@@ -14,7 +13,6 @@ using Str.MvvmCommon.Core;
 
 namespace Str.DialogView.Controllers {
 
-  [Export(typeof(IController))]
   [SuppressMessage("ReSharper", "AsyncConverter.CanBeUseAsyncMethodHighlighting", Justification = "Cannot use async as this is the main thread.")]
   public class InputBoxController : IController {
 
@@ -30,7 +28,6 @@ namespace Str.DialogView.Controllers {
 
     #region Constructor
 
-    [ImportingConstructor]
     public InputBoxController(InputBoxViewModel viewModel, IMessenger messenger) {
       this.viewModel = viewModel;
 
@@ -66,7 +63,7 @@ namespace Str.DialogView.Controllers {
 
       RefreshMessage();
 
-      messenger.Send(new OpenDialogMessage { Name = DialogNames.InputBoxDialog });
+      messenger.Send(new OpenDialogMessage { DialogType = typeof(InputBoxView)});
     }
 
     #endregion Messages

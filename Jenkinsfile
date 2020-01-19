@@ -1,8 +1,8 @@
 pipeline {
   agent any
   environment {
-    MASTER_VER  = '2.1.1'
-    RELEASE_VER = '2.1.1'
+    MASTER_VER  = '3.0.0'
+    RELEASE_VER = '3.0.0'
 
     GIT_HASH = GIT_COMMIT.take(7)
   }
@@ -10,7 +10,7 @@ pipeline {
   	stage('Environment') {
   		steps {
         script {
-          env.JDATE = new Date().format("yyDDD.HHmm")
+          env.JDATE = new Date().format("yyDDD.1HHmm")
         }
   		}
   	}

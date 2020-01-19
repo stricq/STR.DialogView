@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +8,9 @@ using System.Windows;
 using Str.Common.Extensions;
 using Str.Common.Messages;
 
-using Str.DialogView.Constants;
 using Str.DialogView.Messages;
 using Str.DialogView.ViewModels;
+using Str.DialogView.Views;
 
 using Str.MvvmCommon.Contracts;
 using Str.MvvmCommon.Core;
@@ -19,7 +18,6 @@ using Str.MvvmCommon.Core;
 
 namespace Str.DialogView.Controllers {
 
-  [Export(typeof(IController))]
   [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "This is a library.")]
   public class ErrorDialogController : IController {
 
@@ -37,7 +35,6 @@ namespace Str.DialogView.Controllers {
 
     #region Constructor
 
-    [ImportingConstructor]
     public ErrorDialogController(ErrorDialogViewModel viewModel, IMessenger messenger) {
       this.viewModel = viewModel;
 
@@ -71,10 +68,10 @@ namespace Str.DialogView.Controllers {
     private void OnApplicationError(ApplicationErrorMessage message) {
       lock(errors) errors.Add(message);
 
-      TaskHelper.RunOnUiThread(() => {
+      TaskHelper.RunOnUiThreadAsync(() => {
         RefreshErrors(); // This probably doesn't need to explicitly be on the ui thread...
 
-        if (message.OpenErrorWindow) messenger.Send(new OpenDialogMessage { Name = DialogNames.ErrorDialog, IsError = true });
+        if (message.OpenErrorWindow) messenger.Send(new OpenDialogMessage { DialogType = typeof(ErrorDialogView), IsError = true });
       }).FireAndForget();
     }
 

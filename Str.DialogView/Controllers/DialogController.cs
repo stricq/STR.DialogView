@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.Composition;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,14 +18,13 @@ using Str.MvvmCommon.Contracts;
 
 namespace Str.DialogView.Controllers {
 
-  [Export(typeof(IController))]
   public class DialogController : IController {
 
     #region Private Fields
 
     private readonly DialogViewModel viewModel;
 
-    private readonly Dictionary<IViewTagMetadata, IDialogViewLocator> allViews;
+    private readonly IEnumerable<IDialogViewLocator> dialogViews;
 
     private readonly IMessenger messenger;
 
@@ -35,13 +32,12 @@ namespace Str.DialogView.Controllers {
 
     #region Constructor
 
-    [ImportingConstructor]
-    public DialogController(DialogViewModel viewModel, IMessenger messenger, [ImportMany] IEnumerable<Lazy<IDialogViewLocator, IViewTagMetadata>> dialogViews) {
+    public DialogController(DialogViewModel viewModel, IMessenger messenger, IEnumerable<IDialogViewLocator> dialogViews) {
       this.viewModel = viewModel;
 
       this.messenger = messenger;
 
-      allViews = dialogViews.ToDictionary(v => v.Metadata, v => v.Value);
+      this.dialogViews = dialogViews;
     }
 
     #endregion Constructor
@@ -55,7 +51,7 @@ namespace Str.DialogView.Controllers {
 
       viewModel.DialogBorderColor = Brushes.BlueViolet;
 
-      viewModel.DialogViews = new ObservableCollection<IDialogViewLocator>(allViews.Select(dv => dv.Value));
+      viewModel.DialogViews = new ObservableCollection<IDialogViewLocator>(dialogViews);
 
       RegisterMessages();
 
@@ -73,7 +69,7 @@ namespace Str.DialogView.Controllers {
     }
 
     private void OnOpenDialog(OpenDialogMessage message) {
-      IDialogViewModel model = allViews.Where(kvp => kvp.Key.Name == message.Name).Select(kvp => kvp.Value.DataContext as IDialogViewModel).FirstOrDefault();
+      IDialogViewModel model = dialogViews.Where(dv => dv.GetType() == message.DialogType).Select(dv => dv.DataContext as IDialogViewModel).FirstOrDefault();
 
       if (model == null) return;
 

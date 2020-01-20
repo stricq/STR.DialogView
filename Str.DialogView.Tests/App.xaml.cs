@@ -53,10 +53,10 @@ namespace Str.DialogView.Tests {
       base.OnStartup(args);
     }
 
-    protected override void OnExit(ExitEventArgs e) {
+    protected override void OnExit(ExitEventArgs args) {
       container.OnExit();
 
-      base.OnExit(e);
+      base.OnExit(args);
     }
 
     #endregion Overrides

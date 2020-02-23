@@ -18,6 +18,7 @@
     <ApplicationIcon />
     <Win32Resource />
     <RepositoryUrl>https://github.com/stricq/STR.DialogView</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

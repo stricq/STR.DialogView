@@ -1,8 +1,8 @@
 pipeline {
   agent any
   environment {
-    DEBUG_VER   = '3.0.0'
-    RELEASE_VER = '3.0.0'
+    DEBUG_VER   = '3.0.1'
+    RELEASE_VER = '3.0.1'
 
     GIT_HASH = GIT_COMMIT.take(7)
   }
@@ -35,7 +35,7 @@ pipeline {
       }
     }
     stage('Pack Debug') {
-      when { not { branch 'release' } }
+      when { not { anyOf { branch 'release'; branch 'master'; branch 'PR*' } } }
       steps {
         bat 'dotnet pack --configuration Debug --no-build --include-symbols -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -p:PackageVersion="%DEBUG_VER%-%GIT_BRANCH%.%JDATE%+%GIT_HASH%" --output nupkgs'
       }
@@ -47,7 +47,7 @@ pipeline {
       }
     }
     stage('Publish') {
-      when { not { branch 'PR*' } }
+      when { not { anyOf { branch 'master'; branch 'PR*' } } }
       environment {
         NUGET_API_KEY = credentials('nuget-api-key')
       }

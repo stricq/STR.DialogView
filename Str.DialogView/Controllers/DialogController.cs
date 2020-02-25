@@ -15,6 +15,8 @@ using Str.MvvmCommon.Contracts;
 
 [assembly: XmlnsDefinition("http://schemas.stricq.com/dialogview", "Str.DialogView.Views")]
 
+[assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
+
 
 namespace Str.DialogView.Controllers {
 

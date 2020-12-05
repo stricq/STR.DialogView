@@ -6,6 +6,8 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
 
+using Str.Common.Extensions;
+
 using Str.DialogView.Contracts;
 using Str.DialogView.Messages;
 using Str.DialogView.ViewModels;
@@ -15,10 +17,12 @@ using Str.MvvmCommon.Contracts;
 
 [assembly: XmlnsDefinition("http://schemas.stricq.com/dialogview", "Str.DialogView.Views")]
 
+[assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
+
 
 namespace Str.DialogView.Controllers {
 
-  public class DialogController : IController {
+  public class DialogController : IController, IMessageReceiver {
 
     #region Private Fields
 
@@ -63,17 +67,17 @@ namespace Str.DialogView.Controllers {
     #region Messages
 
     private void RegisterMessages() {
-      messenger.Register<OpenDialogMessage>(this, OnOpenDialog);
+      messenger.Register<OpenDialogMessage>(this, OnOpenDialogAsync);
 
-      messenger.Register<CloseDialogMessage>(this, OnCloseDialog);
+      messenger.Register<CloseDialogMessage>(this, OnCloseDialogAsync);
     }
 
-    private void OnOpenDialog(OpenDialogMessage message) {
+    private async Task OnOpenDialogAsync(OpenDialogMessage message) {
       IDialogViewModel model = dialogViews.Where(dv => dv.GetType() == message.DialogViewType).Select(dv => dv.DataContext as IDialogViewModel).FirstOrDefault();
 
       if (model == null) return;
 
-      messenger.Send(new DialogVisibilityChangedMessage { IsVisible = true });
+      await messenger.SendAsync(new DialogVisibilityChangedMessage { IsVisible = true }).Fire();
 
       viewModel.DialogContent = model;
 
@@ -82,12 +86,12 @@ namespace Str.DialogView.Controllers {
       viewModel.Visibility = Visibility.Visible;
     }
 
-    private void OnCloseDialog(CloseDialogMessage message) {
+    private async Task OnCloseDialogAsync(CloseDialogMessage message) {
       viewModel.Visibility = Visibility.Collapsed;
 
       viewModel.DialogContent = null;
 
-      messenger.Send(new DialogVisibilityChangedMessage { IsVisible = false });
+      await messenger.SendAsync(new DialogVisibilityChangedMessage { IsVisible = false }).Fire();
     }
 
     #endregion Messages

@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <UseWpf>true</UseWpf>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Version>1.0.0</Version>
@@ -18,6 +18,8 @@
     <ApplicationIcon />
     <Win32Resource />
     <RepositoryUrl>https://github.com/stricq/STR.DialogView</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -26,7 +28,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Themes\Generic.xaml" />
     <None Remove="Views\DialogView.xaml" />
     <None Remove="Views\ErrorDialogView.xaml" />
     <None Remove="Views\InputBoxView.xaml" />
@@ -38,7 +39,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="STR.MvvmCommon" Version="3.0.0" />
+    <PackageReference Include="STR.MvvmCommon" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>

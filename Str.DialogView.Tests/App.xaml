@@ -5,6 +5,8 @@
   <Application.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Generic.xaml" />
+
         <ResourceDictionary Source="Resources/ColorsAndGradients.xaml" />
 
         <ResourceDictionary Source="Resources/HeaderedContentStyle.xaml" />

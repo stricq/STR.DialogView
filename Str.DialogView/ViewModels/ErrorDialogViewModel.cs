@@ -21,15 +21,15 @@ namespace Str.DialogView.ViewModels {
 
     private Visibility visibility;
 
-    private RelayCommand clear;
+    private RelayCommandAsync clear;
 
-    private RelayCommand clearAll;
+    private RelayCommandAsync clearAll;
 
-    private RelayCommand next;
+    private RelayCommandAsync next;
 
-    private RelayCommand ok;
+    private RelayCommandAsync ok;
 
-    private RelayCommand previous;
+    private RelayCommandAsync previous;
 
     #endregion Private Fields
 
@@ -60,27 +60,27 @@ namespace Str.DialogView.ViewModels {
       set => SetField(ref visibility, value, () => Visibility);
     }
 
-    public RelayCommand Clear {
+    public RelayCommandAsync Clear {
       get => clear;
       set => SetField(ref clear, value, () => Clear);
     }
 
-    public RelayCommand ClearAll {
+    public RelayCommandAsync ClearAll {
       get => clearAll;
       set => SetField(ref clearAll, value, () => ClearAll);
     }
 
-    public RelayCommand Next {
+    public RelayCommandAsync Next {
       get => next;
       set => SetField(ref next, value, () => Next);
     }
 
-    public RelayCommand Ok {
+    public RelayCommandAsync Ok {
       get => ok;
       set => SetField(ref ok, value, () => Ok);
     }
 
-    public RelayCommand Previous {
+    public RelayCommandAsync Previous {
       get => previous;
       set => SetField(ref previous, value, () => Previous);
     }

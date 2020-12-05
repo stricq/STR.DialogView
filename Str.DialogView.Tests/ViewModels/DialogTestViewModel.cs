@@ -13,12 +13,12 @@ namespace Str.DialogView.Tests.ViewModels {
     private RelayCommandAsync<EventArgs> initialized;
     private RelayCommandAsync<RoutedEventArgs> loaded;
 
-    private RelayCommand errorDialog;
+    private RelayCommandAsync errorDialog;
 
-    private RelayCommand inputBoxDialog;
+    private RelayCommandAsync inputBoxDialog;
 
-    private RelayCommand messageBoxDialog1;
-    private RelayCommand messageBoxDialog2;
+    private RelayCommandAsync messageBoxDialog1;
+    private RelayCommandAsync messageBoxDialog2;
 
     #endregion Private Fields
 
@@ -34,22 +34,22 @@ namespace Str.DialogView.Tests.ViewModels {
       set => SetField(ref loaded, value, () => Loaded);
     }
 
-    public RelayCommand ErrorDialog {
+    public RelayCommandAsync ErrorDialog {
       get => errorDialog;
       set => SetField(ref errorDialog, value, () => ErrorDialog);
     }
 
-    public RelayCommand InputBoxDialog {
+    public RelayCommandAsync InputBoxDialog {
       get => inputBoxDialog;
       set => SetField(ref inputBoxDialog, value, () => InputBoxDialog);
     }
 
-    public RelayCommand MessageBoxDialog1 {
+    public RelayCommandAsync MessageBoxDialog1 {
       get => messageBoxDialog1;
       set => SetField(ref messageBoxDialog1, value, () => MessageBoxDialog1);
     }
 
-    public RelayCommand MessageBoxDialog2 {
+    public RelayCommandAsync MessageBoxDialog2 {
       get => messageBoxDialog2;
       set => SetField(ref messageBoxDialog2, value, () => MessageBoxDialog2);
     }

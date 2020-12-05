@@ -6,8 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Str.DialogView.Extensions;
 
-using Str.DialogView.Tests.Controllers;
-using Str.DialogView.Tests.ViewModels;
 using Str.DialogView.Tests.Views;
 
 using Str.MvvmCommon.Contracts;
@@ -37,10 +35,10 @@ namespace Str.DialogView.Tests {
     #region Overrides
 
     protected override void OnStartup(StartupEventArgs args) {
-      container.OnStartup();
+      container.OnStartupAsync();
 
       try {
-        container.InitializeControllers();
+        container.InitializeControllersAsync();
       }
       catch(Exception ex) {
         while(ex.InnerException != null) ex = ex.InnerException;
@@ -54,7 +52,7 @@ namespace Str.DialogView.Tests {
     }
 
     protected override void OnExit(ExitEventArgs args) {
-      container.OnExit();
+      container.OnExitAsync();
 
       base.OnExit(args);
     }
@@ -65,11 +63,6 @@ namespace Str.DialogView.Tests {
 
     private static void ConfigureServices(IServiceCollection services, IConfiguration configuration) {
       services.AddStrDialogView();
-
-      services.AddSingleton<DialogTestView>();
-
-      services.AddSingleton<IController, DialogTestController>();
-      services.AddSingleton<DialogTestViewModel>();
     }
 
     #endregion Private Methods

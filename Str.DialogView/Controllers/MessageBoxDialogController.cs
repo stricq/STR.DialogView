@@ -15,7 +15,7 @@ using Str.MvvmCommon.Core;
 namespace Str.DialogView.Controllers {
 
   [SuppressMessage("ReSharper", "AsyncConverter.CanBeUseAsyncMethodHighlighting", Justification = "Cannot be async as this is the main thread.")]
-  public class MessageBoxDialogController : IController {
+  public class MessageBoxDialogController : IController, IMessageReceiver {
 
     #region Private Fields
 
@@ -54,17 +54,17 @@ namespace Str.DialogView.Controllers {
     #region Messages
 
     private void RegisterMessages() {
-      messenger.Register<MessageBoxDialogMessage>(this, true, OnDialogMessage);
+      messenger.Register<MessageBoxDialogMessage>(this, true, OnDialogMessageAsync);
     }
 
-    private void OnDialogMessage(MessageBoxDialogMessage dialogMessage) {
+    private async Task OnDialogMessageAsync(MessageBoxDialogMessage dialogMessage) {
       if (dialogMessage == null) return;
 
       message = dialogMessage;
 
       RefreshMessage();
 
-      messenger.Send(new OpenDialogMessage { DialogViewType = typeof(MessageBoxDialogView)});
+      await messenger.SendAsync(new OpenDialogMessage { DialogViewType = typeof(MessageBoxDialogView)}).Fire();
     }
 
     #endregion Messages
@@ -78,7 +78,7 @@ namespace Str.DialogView.Controllers {
     }
 
     private async Task OnOkExecuteAsync() {
-      messenger.Send(new CloseDialogMessage());
+      await messenger.SendAsync(new CloseDialogMessage()).Fire();
 
       message.IsCancel = false;
 
@@ -87,7 +87,7 @@ namespace Str.DialogView.Controllers {
     }
 
     private async Task OnCancelExecuteAsync() {
-      messenger.Send(new CloseDialogMessage());
+      await messenger.SendAsync(new CloseDialogMessage()).Fire();
 
       message.IsCancel = true;
 

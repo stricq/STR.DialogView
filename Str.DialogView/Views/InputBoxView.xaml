@@ -10,7 +10,7 @@
 
   <Grid Margin="6">
 
-    <HeaderedContentControl Header="{Binding Path=HeaderText}" Style="{DynamicResource ShortHeaderedContentStyle}">
+    <HeaderedContentControl Header="{Binding Path=HeaderText}" Style="{DynamicResource StrDialogShortHeaderedContentStyle}">
 
       <Grid>
         <Grid.RowDefinitions>

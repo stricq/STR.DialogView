@@ -14,7 +14,7 @@
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
 
-    <HeaderedContentControl Grid.Row="0" Header="{Binding Path=Header}" Margin="0,0,0,6" Style="{DynamicResource ShortHeaderedContentStyle}">
+    <HeaderedContentControl Grid.Row="0" Header="{Binding Path=Header}" Margin="0,0,0,6" Style="{DynamicResource StrDialogShortHeaderedContentStyle}">
       <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <TextBlock Text="{Binding Path=Message}" />
       </ScrollViewer>

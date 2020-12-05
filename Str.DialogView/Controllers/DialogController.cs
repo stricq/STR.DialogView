@@ -77,7 +77,7 @@ namespace Str.DialogView.Controllers {
 
       if (model == null) return;
 
-      await messenger.SendAsync(new DialogVisibilityChangedMessage {IsVisible = true}).Fire();
+      await messenger.SendAsync(new DialogVisibilityChangedMessage { IsVisible = true }).Fire();
 
       viewModel.DialogContent = model;
 

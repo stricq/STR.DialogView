@@ -14,7 +14,7 @@ using Str.MvvmCommon.Core;
 namespace Str.DialogView.Controllers {
 
   [SuppressMessage("ReSharper", "AsyncConverter.CanBeUseAsyncMethodHighlighting", Justification = "Cannot use async as this is the main thread.")]
-  public class InputBoxController : IController {
+  public class InputBoxController : IController, IMessageReceiver {
 
     #region Private Fields
 
@@ -53,17 +53,17 @@ namespace Str.DialogView.Controllers {
     #region Messages
 
     private void RegisterMessages() {
-      messenger.Register<InputBoxDialogMessage>(this, true, OnInputBoxExecute);
+      messenger.Register<InputBoxDialogMessage>(this, true, OnInputBoxExecuteAsync);
     }
 
-    private void OnInputBoxExecute(InputBoxDialogMessage dialogMessage) {
-      if (dialogMessage == null) return;
+    private Task OnInputBoxExecuteAsync(InputBoxDialogMessage dialogMessage) {
+      if (dialogMessage == null) return Task.CompletedTask;
 
       message = dialogMessage;
 
       RefreshMessage();
 
-      messenger.Send(new OpenDialogMessage { DialogViewType = typeof(InputBoxView)});
+      return messenger.SendAsync(new OpenDialogMessage { DialogViewType = typeof(InputBoxView)});
     }
 
     #endregion Messages
@@ -76,7 +76,7 @@ namespace Str.DialogView.Controllers {
     }
 
     private async Task OnOkExecuteAsync() {
-      messenger.Send(new CloseDialogMessage());
+      await messenger.SendAsync(new CloseDialogMessage()).Fire();
 
       message.Input    = viewModel.InputText;
       message.IsCancel = false;
@@ -86,7 +86,7 @@ namespace Str.DialogView.Controllers {
     }
 
     private async Task OnCancelExecuteAsync() {
-      messenger.Send(new CloseDialogMessage());
+      await messenger.SendAsync(new CloseDialogMessage()).Fire();
 
       message.Input    = viewModel.InputText;
       message.IsCancel = true;

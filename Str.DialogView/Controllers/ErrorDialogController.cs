@@ -19,7 +19,7 @@ using Str.MvvmCommon.Core;
 namespace Str.DialogView.Controllers {
 
   [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "This is a library.")]
-  public class ErrorDialogController : IController {
+  public class ErrorDialogController : IController, IMessageReceiver {
 
     #region Private Fields
 
@@ -62,17 +62,17 @@ namespace Str.DialogView.Controllers {
     #region Messages
 
     private void RegisterMessages() {
-      messenger.Register<ApplicationErrorMessage>(this, true, OnApplicationError);
+      messenger.Register<ApplicationErrorMessage>(this, true, OnApplicationErrorAsync);
     }
 
-    private void OnApplicationError(ApplicationErrorMessage message) {
+    private async Task OnApplicationErrorAsync(ApplicationErrorMessage message) {
       lock(errors) errors.Add(message);
 
-      TaskHelper.RunOnUiThreadAsync(() => {
+      await TaskHelper.RunOnUiThreadAsync(async () => {
         RefreshErrors(); // This probably doesn't need to explicitly be on the ui thread...
 
-        if (message.OpenErrorWindow) messenger.Send(new OpenDialogMessage { DialogViewType = typeof(ErrorDialogView), IsError = true });
-      }).FireAndForget();
+        if (message.OpenErrorWindow) await messenger.SendAsync(new OpenDialogMessage { DialogViewType = typeof(ErrorDialogView), IsError = true }).Fire();
+      }).Fire();
     }
 
     #endregion Messages
@@ -80,21 +80,21 @@ namespace Str.DialogView.Controllers {
     #region Commands
 
     private void RegisterCommands() {
-      viewModel.Clear = new RelayCommand(OnClearExecute, CanClearExecute);
+      viewModel.Clear = new RelayCommandAsync(OnClearExecuteAsync, CanClearExecute);
 
-      viewModel.Previous = new RelayCommand(OnPreviousExecute, CanPreviousExecute);
+      viewModel.Previous = new RelayCommandAsync(OnPreviousExecuteAsync, CanPreviousExecute);
 
-      viewModel.Next = new RelayCommand(OnNextExecute, CanNextExecute);
+      viewModel.Next = new RelayCommandAsync(OnNextExecuteAsync, CanNextExecute);
 
-      viewModel.Ok = new RelayCommand(OnOkExecute);
+      viewModel.Ok = new RelayCommandAsync(OnOkExecuteAsync);
 
-      viewModel.ClearAll = new RelayCommand(OnClearAllExecute, CanClearAllExecute);
+      viewModel.ClearAll = new RelayCommandAsync(OnClearAllExecuteAsync, CanClearAllExecute);
     }
 
     #region Clear Command
 
-    private void OnClearExecute() {
-      if (errors.Count == 0) return;
+    private Task OnClearExecuteAsync() {
+      if (errors.Count == 0) return Task.CompletedTask;
 
       lock(errors) {
         errors.RemoveAt(index);
@@ -104,10 +104,12 @@ namespace Str.DialogView.Controllers {
         if (errors.Count == 0) {
           index = 0;
 
-          messenger.Send(new CloseDialogMessage());
+          messenger.SendAsync(new CloseDialogMessage()).FireAndWait();
         }
         else RefreshErrors();
       }
+
+      return Task.CompletedTask;
     }
 
     private bool CanClearExecute() {
@@ -118,12 +120,14 @@ namespace Str.DialogView.Controllers {
 
     #region Previous Command
 
-    private void OnPreviousExecute() {
-      if (errors.Count == 0) return;
+    private Task OnPreviousExecuteAsync() {
+      if (errors.Count == 0) return Task.CompletedTask;
 
       --index;
 
       RefreshErrors();
+
+      return Task.CompletedTask;
     }
 
     private bool CanPreviousExecute() {
@@ -134,12 +138,14 @@ namespace Str.DialogView.Controllers {
 
     #region Next Command
 
-    private void OnNextExecute() {
-      if (errors.Count == 0) return;
+    private Task OnNextExecuteAsync() {
+      if (errors.Count == 0) return Task.CompletedTask;
 
       ++index;
 
       RefreshErrors();
+
+      return Task.CompletedTask;
     }
 
     private bool CanNextExecute() {
@@ -150,22 +156,24 @@ namespace Str.DialogView.Controllers {
 
     #region Ok Command
 
-    private void OnOkExecute() {
-      messenger.Send(new CloseDialogMessage());
+    private async Task OnOkExecuteAsync() {
+      await messenger.SendAsync(new CloseDialogMessage()).Fire();
     }
 
     #endregion Ok Command
 
     #region ClearAll Command
 
-    private void OnClearAllExecute() {
+    private Task OnClearAllExecuteAsync() {
       lock(errors) {
         errors.Clear();
 
         index = 0;
 
-        messenger.Send(new CloseDialogMessage());
+        messenger.SendAsync(new CloseDialogMessage()).FireAndWait();
       }
+
+      return Task.CompletedTask;
     }
 
     private bool CanClearAllExecute() {
@@ -185,22 +193,7 @@ namespace Str.DialogView.Controllers {
           viewModel.HeaderText  = errors[index].HeaderText ?? "Application Error";
 
           if (errors[index].Exception != null) {
-            viewModel.MessageText = String.IsNullOrEmpty(errors[index].ErrorMessage) ? errors[index].Exception.Message : errors[index].ErrorMessage;
-            viewModel.Visibility  = Visibility.Visible;
-
-            StringBuilder str = new StringBuilder();
-
-            Exception ex = errors[index].Exception;
-
-            do {
-              if (ex != errors[index].Exception) str.Append("\n\n---------- Inner Exception ----------\n\n");
-
-              str.AppendFormat("{0}\n\n{1}", ex.Message, ex.StackTrace);
-
-              ex = ex.InnerException;
-            } while(ex != null);
-
-            viewModel.StackTrace = str.ToString();
+            UnwindException(errors[index].Exception);
           }
           else {
             viewModel.MessageText = errors[index].ErrorMessage;
@@ -216,6 +209,25 @@ namespace Str.DialogView.Controllers {
           viewModel.StackTrace  = String.Empty;
         }
       }
+    }
+
+    private void UnwindException(Exception exception) {
+      viewModel.MessageText = String.IsNullOrEmpty(errors[index].ErrorMessage) ? exception.Message : errors[index].ErrorMessage;
+      viewModel.Visibility  = Visibility.Visible;
+
+      StringBuilder stackTrace = new StringBuilder();
+
+      Exception ex = exception;
+
+      do {
+        if (ex != exception) stackTrace.Append("\n\n---------- Inner Exception ----------\n\n");
+
+        stackTrace.AppendFormat("{0}\n\n{1}", ex.Message, ex.StackTrace);
+
+        ex = ex.InnerException;
+      } while(ex != null);
+
+      viewModel.StackTrace = stackTrace.ToString();
     }
 
     #endregion Private Methods

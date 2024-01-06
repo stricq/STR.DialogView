@@ -1,35 +1,39 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using JetBrains.Annotations;
+
 using Str.Common.Messages;
 
 
-namespace Str.DialogView.Messages {
+namespace Str.DialogView.Messages;
 
-  public class MessageBoxDialogMessage : MessageBase {
 
-    public bool IsCancel { get; set; }
+public class MessageBoxDialogMessage : MessageBase {
 
-    public string Header { get; set; }
+  public bool IsCancel { get; set; }
 
-    public string Message { get; set; }
+  public required string Header { get; init; }
 
-    public string OkText { get; set; }
+  public required string Message { get; init; }
 
-    public string CancelText { get; set; }
+  public string? OkText { get; init; }
 
-    public bool HasCancel { get; set; }
+  public string? CancelText { get; init; }
 
-    public Action<MessageBoxDialogMessage> Callback { get; set; }
+  public bool HasCancel { get; init; }
 
-    public Func<MessageBoxDialogMessage, Task> CallbackAsync { get; set; }
+  public Action<MessageBoxDialogMessage>? Callback { get; [UsedImplicitly] init; }
 
-  }
+  public Func<MessageBoxDialogMessage, Task>? CallbackAsync { get; init; }
 
-  public class MessageBoxDialogMessage<T> : MessageBoxDialogMessage {
+}
 
-    public T State { get; set; }
 
-  }
+[UsedImplicitly]
+public class MessageBoxDialogMessage<T> : MessageBoxDialogMessage {
+
+  [UsedImplicitly]
+  public required T State { get; init; }
 
 }

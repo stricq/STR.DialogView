@@ -4,15 +4,14 @@ using System.Diagnostics.CodeAnalysis;
 using Str.Common.Messages;
 
 
-namespace Str.DialogView.Messages {
+namespace Str.DialogView.Messages;
 
-  [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "This is a library.")]
-  public class OpenDialogMessage : MessageBase {
 
-    public Type DialogViewType { get; set; }
+[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "This is a library.")]
+public class OpenDialogMessage : MessageBase {
 
-    public bool IsError { get; set; }
+  public required Type DialogViewType { get; init; }
 
-  }
+  public bool IsError { get; init; }
 
 }

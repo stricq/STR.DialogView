@@ -1,14 +1,10 @@
-﻿using System.Windows;
+﻿namespace Str.DialogView.Tests.Views;
 
 
-namespace Str.DialogView.Tests.Views {
+public partial class DialogTestView {
 
-  public partial class DialogTestView : Window {
-
-    public DialogTestView() {
-      InitializeComponent();
-    }
-
+  public DialogTestView() {
+    InitializeComponent();
   }
 
 }

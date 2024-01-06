@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <UseWpf>true</UseWpf>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Version>1.0.0</Version>
@@ -9,7 +9,7 @@
     <Company>STR Programming Services</Company>
     <PackageId>STR.DialogView</PackageId>
     <Description>Common MVVM Dialogs for other STR WPF applications.</Description>
-    <Copyright>Copyright 2019,2020 STR Programming Services</Copyright>
+    <Copyright>Copyright 2019-2023 STR Programming Services</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/stricq/STR.DialogView</PackageProjectUrl>
     <PackageTags>str mvvm dialog wpf</PackageTags>
@@ -19,7 +19,7 @@
     <Win32Resource />
     <RepositoryUrl>https://github.com/stricq/STR.DialogView</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Nullable>disable</Nullable>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -35,11 +35,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="STR.MvvmCommon" Version="5.0.1" />
+    <PackageReference Include="STR.MvvmCommon" Version="8.0.1" />
   </ItemGroup>
 
   <ItemGroup>

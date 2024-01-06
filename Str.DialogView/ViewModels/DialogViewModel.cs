@@ -15,13 +15,13 @@ namespace Str.DialogView.ViewModels {
 
     #region Private Fields
 
-    private ObservableCollection<IDialogViewLocator> dialogViews;
+    private ObservableCollection<IDialogViewLocator> dialogViews = new ObservableCollection<IDialogViewLocator>();
 
-    private SolidColorBrush dialogBorderColor;
+    private SolidColorBrush dialogBorderColor = Brushes.BlueViolet;
 
-    private Visibility visibility;
+    private Visibility visibility = Visibility.Collapsed;
 
-    private IDialogViewModel dialogContent;
+    private IDialogViewModel? dialogContent;
 
     #endregion Private Fields
 
@@ -42,7 +42,7 @@ namespace Str.DialogView.ViewModels {
       set => SetField(ref visibility, value, () => Visibility);
     }
 
-    public IDialogViewModel DialogContent {
+    public IDialogViewModel? DialogContent {
       get => dialogContent;
       set => SetField(ref dialogContent, value, () => DialogContent);
     }

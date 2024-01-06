@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -51,11 +50,7 @@ namespace Str.DialogView.Controllers {
     public int InitializePriority { get; } = 100;
 
     public Task InitializeAsync() {
-      viewModel.Visibility = Visibility.Collapsed;
-
-      viewModel.DialogBorderColor = Brushes.BlueViolet;
-
-      viewModel.DialogViews = new ObservableCollection<IDialogViewLocator>(dialogViews);
+      viewModel.DialogViews.AddRange(dialogViews);
 
       RegisterMessages();
 
@@ -73,9 +68,9 @@ namespace Str.DialogView.Controllers {
     }
 
     private async Task OnOpenDialogAsync(OpenDialogMessage message) {
-      IDialogViewModel model = dialogViews.Where(dv => dv.GetType() == message.DialogViewType).Select(dv => dv.DataContext as IDialogViewModel).FirstOrDefault();
+      if (dialogViews.All(dv => dv.GetType() != message.DialogViewType)) return;
 
-      if (model == null) return;
+      IDialogViewModel model = (dialogViews.First(dv => dv.GetType() == message.DialogViewType).DataContext as IDialogViewModel)!;
 
       await messenger.SendAsync(new DialogVisibilityChangedMessage { IsVisible = true }).Fire();
 

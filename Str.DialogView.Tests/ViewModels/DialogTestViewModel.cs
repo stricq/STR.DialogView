@@ -1,61 +1,64 @@
 ﻿using System;
 using System.Windows;
 
+using JetBrains.Annotations;
+
 using Str.MvvmCommon.Core;
+using Str.MvvmCommon.Helpers;
 
 
-namespace Str.DialogView.Tests.ViewModels {
+namespace Str.DialogView.Tests.ViewModels;
 
-  public class DialogTestViewModel : ObservableObject {
 
-    #region Private Fieldss
+[UsedImplicitly]
+public class DialogTestViewModel : ObservableObject {
 
-    private RelayCommandAsync<EventArgs> initialized;
-    private RelayCommandAsync<RoutedEventArgs> loaded;
+  #region Private Fieldss
 
-    private RelayCommandAsync errorDialog;
+  private RelayCommandAsync<EventArgs>  initialized = RelayCommandHelper.EmptyRelayCommandT<EventArgs>();
+  private RelayCommandAsync<RoutedEventArgs> loaded = RelayCommandHelper.EmptyRelayCommandT<RoutedEventArgs>();
 
-    private RelayCommandAsync inputBoxDialog;
+  private RelayCommandAsync errorDialog = RelayCommandHelper.EmptyRelayCommand;
 
-    private RelayCommandAsync messageBoxDialog1;
-    private RelayCommandAsync messageBoxDialog2;
+  private RelayCommandAsync inputBoxDialog = RelayCommandHelper.EmptyRelayCommand;
 
-    #endregion Private Fields
+  private RelayCommandAsync messageBoxDialog1 = RelayCommandHelper.EmptyRelayCommand;
+  private RelayCommandAsync messageBoxDialog2 = RelayCommandHelper.EmptyRelayCommand;
 
-    #region Properties
+  #endregion Private Fields
 
-    public RelayCommandAsync<EventArgs> Initialized {
-      get => initialized;
-      set => SetField(ref initialized, value, () => Initialized);
-    }
+  #region Properties
 
-    public RelayCommandAsync<RoutedEventArgs> Loaded {
-      get => loaded;
-      set => SetField(ref loaded, value, () => Loaded);
-    }
-
-    public RelayCommandAsync ErrorDialog {
-      get => errorDialog;
-      set => SetField(ref errorDialog, value, () => ErrorDialog);
-    }
-
-    public RelayCommandAsync InputBoxDialog {
-      get => inputBoxDialog;
-      set => SetField(ref inputBoxDialog, value, () => InputBoxDialog);
-    }
-
-    public RelayCommandAsync MessageBoxDialog1 {
-      get => messageBoxDialog1;
-      set => SetField(ref messageBoxDialog1, value, () => MessageBoxDialog1);
-    }
-
-    public RelayCommandAsync MessageBoxDialog2 {
-      get => messageBoxDialog2;
-      set => SetField(ref messageBoxDialog2, value, () => MessageBoxDialog2);
-    }
-
-    #endregion Properties
-
+  public RelayCommandAsync<EventArgs> Initialized {
+    get => initialized;
+    set => SetField(ref initialized, value, () => Initialized);
   }
+
+  public RelayCommandAsync<RoutedEventArgs> Loaded {
+    get => loaded;
+    set => SetField(ref loaded, value, () => Loaded);
+  }
+
+  public RelayCommandAsync ErrorDialog {
+    get => errorDialog;
+    set => SetField(ref errorDialog, value, () => ErrorDialog);
+  }
+
+  public RelayCommandAsync InputBoxDialog {
+    get => inputBoxDialog;
+    set => SetField(ref inputBoxDialog, value, () => InputBoxDialog);
+  }
+
+  public RelayCommandAsync MessageBoxDialog1 {
+    get => messageBoxDialog1;
+    set => SetField(ref messageBoxDialog1, value, () => MessageBoxDialog1);
+  }
+
+  public RelayCommandAsync MessageBoxDialog2 {
+    get => messageBoxDialog2;
+    set => SetField(ref messageBoxDialog2, value, () => MessageBoxDialog2);
+  }
+
+  #endregion Properties
 
 }

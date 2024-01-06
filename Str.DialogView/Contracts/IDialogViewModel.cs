@@ -1,7 +1,3 @@
-﻿
+﻿namespace Str.DialogView.Contracts;
 
-namespace Str.DialogView.Contracts {
-
-  public interface IDialogViewModel { }
-
-}
+public interface IDialogViewModel;

@@ -8,65 +8,63 @@ using Str.DialogView.Extensions;
 
 using Str.DialogView.Tests.Views;
 
-using Str.MvvmCommon.Contracts;
 using Str.MvvmCommon.Core;
 
 
-namespace Str.DialogView.Tests {
+namespace Str.DialogView.Tests;
 
-  public partial class App {
 
-    #region Private Fields
+public partial class App {
 
-    private readonly IMvvmContainer container;
+  #region Private Fields
 
-    #endregion Private Fields
+  private readonly MvvmContainer container;
 
-    #region Constructor
+  #endregion Private Fields
 
-    public App() {
-      container = new MvvmContainer();
+  #region Constructor
 
-      container.Initialize(ConfigureServices);
-    }
+  public App() {
+    container = new MvvmContainer();
 
-    #endregion Constructor
-
-    #region Overrides
-
-    protected override void OnStartup(StartupEventArgs args) {
-      container.OnStartupAsync();
-
-      try {
-        container.InitializeControllersAsync();
-      }
-      catch(Exception ex) {
-        while(ex.InnerException != null) ex = ex.InnerException;
-
-        MessageBox.Show($"{ex.Message}\n\n{ex.GetType().FullName}", "Dependency Injection Error");
-      }
-
-      container.Get<DialogTestView>().Show();
-
-      base.OnStartup(args);
-    }
-
-    protected override void OnExit(ExitEventArgs args) {
-      container.OnExitAsync();
-
-      base.OnExit(args);
-    }
-
-    #endregion Overrides
-
-    #region Private Methods
-
-    private static void ConfigureServices(IServiceCollection services, IConfiguration configuration) {
-      services.AddStrDialogView();
-    }
-
-    #endregion Private Methods
-
+    container.Initialize(ConfigureServices);
   }
+
+  #endregion Constructor
+
+  #region Overrides
+
+  protected override void OnStartup(StartupEventArgs args) {
+    container.OnStartupAsync();
+
+    try {
+      container.InitializeControllersAsync();
+    }
+    catch(Exception ex) {
+      while(ex.InnerException != null) ex = ex.InnerException;
+
+      MessageBox.Show($"{ex.Message}\n\n{ex.GetType().FullName}", "Dependency Injection Error");
+    }
+
+    container.Get<DialogTestView>().Show();
+
+    base.OnStartup(args);
+  }
+
+  protected override void OnExit(ExitEventArgs args) {
+    container.OnExitAsync();
+
+    base.OnExit(args);
+  }
+
+  #endregion Overrides
+
+  #region Private Methods
+
+  private static void ConfigureServices(IServiceCollection services, IConfiguration configuration) {
+    services.AddStrDialogView();
+  }
+
+  #endregion Private Methods
 
 }

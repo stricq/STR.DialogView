@@ -1,8 +1,7 @@
 ﻿using Str.MvvmCommon.Contracts;
 
 
-namespace Str.DialogView.Contracts {
+namespace Str.DialogView.Contracts;
 
-  public interface IDialogViewLocator : IViewLocator { }
 
-}
+public interface IDialogViewLocator : IViewLocator;

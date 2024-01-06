@@ -12,111 +12,100 @@ using Str.MvvmCommon.Contracts;
 using Str.MvvmCommon.Core;
 
 
-namespace Str.DialogView.Tests.Controllers {
+namespace Str.DialogView.Tests.Controllers;
 
-  public class DialogTestController : IController {
 
-    #region Private Fields
+public class DialogTestController(DialogTestViewModel viewModel, IMessenger messenger) : IController {
 
-    private readonly DialogTestViewModel viewModel;
+  #region Private Fields
 
-    private readonly IMessenger messenger;
+  private readonly DialogTestViewModel viewModel = viewModel;
 
-    #endregion Private Fields
+  private readonly IMessenger messenger = messenger;
 
-    #region Constructor
+  #endregion Private Fields
 
-    public DialogTestController(DialogTestViewModel viewModel, IMessenger messenger) {
-      this.viewModel = viewModel;
+  #region IController Implementation
 
-      this.messenger = messenger;
-    }
+  public int InitializePriority => 1000;
 
-    #endregion Constructor
+  public Task InitializeAsync() {
+    RegisterCommands();
 
-    #region IController Implementation
+    return Task.CompletedTask;
+  }
 
-    public int InitializePriority { get; } = 1000;
+  #endregion IController Implementation
 
-    public Task InitializeAsync() {
-      RegisterCommands();
+  #region Commands
 
-      return Task.CompletedTask;
-    }
+  private void RegisterCommands() {
+    viewModel.Initialized = new RelayCommandAsync<EventArgs>(OnInitializedAsync);
+    viewModel.Loaded      = new RelayCommandAsync<RoutedEventArgs>(OnLoadedAsync);
 
-    #endregion IController Implementation
+    viewModel.ErrorDialog = new RelayCommandAsync(OnErrorDialogExecuteAsync);
 
-    #region Commands
+    viewModel.InputBoxDialog = new RelayCommandAsync(OnInputBoxDialogExecuteAsync);
 
-    private void RegisterCommands() {
-      viewModel.Initialized = new RelayCommandAsync<EventArgs>(OnInitializedAsync);
-      viewModel.Loaded      = new RelayCommandAsync<RoutedEventArgs>(OnLoadedAsync);
+    viewModel.MessageBoxDialog1 = new RelayCommandAsync(OnMessageBoxDialog1ExecuteAsync);
 
-      viewModel.ErrorDialog = new RelayCommandAsync(OnErrorDialogExecuteAsync);
+    viewModel.MessageBoxDialog2 = new RelayCommandAsync(OnMessageBoxDialog2ExecuteAsync);
+  }
 
-      viewModel.InputBoxDialog = new RelayCommandAsync(OnInputBoxDialogExecuteAsync);
+  private Task OnInitializedAsync(EventArgs ea) {
+//  MessageBox.Show("OnInitialized");
 
-      viewModel.MessageBoxDialog1 = new RelayCommandAsync(OnMessageBoxDialog1ExecuteAsync);
+    return Task.CompletedTask;
+  }
 
-      viewModel.MessageBoxDialog2 = new RelayCommandAsync(OnMessageBoxDialog2ExecuteAsync);
-    }
+  private Task OnLoadedAsync(RoutedEventArgs rea) {
+//  MessageBox.Show("OnLoaded");
 
-    private Task OnInitializedAsync(EventArgs ea) {
-//    MessageBox.Show("OnInitialized");
+    return Task.CompletedTask;
+  }
 
-      return Task.CompletedTask;
-    }
-
-    private Task OnLoadedAsync(RoutedEventArgs rea) {
-//    MessageBox.Show("OnLoaded");
-
-      return Task.CompletedTask;
-    }
-
-    private async Task OnErrorDialogExecuteAsync() {
+  private async Task OnErrorDialogExecuteAsync() {
+    try {
       try {
-        try {
-          throw new Exception("Throwing an inner exception.");
-        }
-        catch(Exception ex) {
-          throw new Exception("Caught an exception and re-throwing.", ex);
-        }
+        throw new Exception("Throwing an inner exception.");
       }
       catch(Exception ex) {
-        await messenger.SendAsync(new ApplicationErrorMessage { HeaderText = "This is the Header", ErrorMessage = "This is the error message.", Exception = ex }).Fire();
-
-        await messenger.SendAsync(new ApplicationErrorMessage { Exception = ex }).Fire();
+        throw new Exception("Caught an exception and re-throwing.", ex);
       }
     }
+    catch(Exception ex) {
+      await messenger.SendAsync(new ApplicationErrorMessage { HeaderText = "This is the Header", ErrorMessage = "This is the error message.", Exception = ex }).Fire();
 
-    private Task OnInputBoxDialogExecuteAsync() {
-      return messenger.SendAsync(new InputBoxDialogMessage { Header = "Input A String", DefaultInput = "Some default text.", Message = "Please be so kind as to enter some text.", CallbackAsync = OnInputBoxDialogCallbackAsync });
+      await messenger.SendAsync(new ApplicationErrorMessage { Exception = ex }).Fire();
     }
-
-    private Task OnMessageBoxDialog1ExecuteAsync() {
-      return messenger.SendAsync(new MessageBoxDialogMessage { Header = "Message Box Test 1", Message = "Testing MessageBox Dialog with Cancel.", CancelText = "Cancel Boo!", HasCancel = true, CallbackAsync = OnMessageBoxDialog1CallbackAsync});
-    }
-
-    private Task OnMessageBoxDialog2ExecuteAsync() {
-      return messenger.SendAsync(new MessageBoxDialogMessage { Header = "Message Box Test 2", Message = "Testing MessageBox Dialog without Cancel.", OkText = "Ok Yay!" });
-    }
-
-    #endregion Commands
-
-    #region Private Methods
-
-    private Task OnInputBoxDialogCallbackAsync(InputBoxDialogMessage callbackMessage) {
-      string message = $"Your Input: {callbackMessage.Input}\n\nYour Action: {(callbackMessage.IsCancel ? "Cancel!" : "Ok!")}";
-
-      return messenger.SendAsync(new MessageBoxDialogMessage { Header = "InputBoxDialog Response", Message = message });
-    }
-
-    private Task OnMessageBoxDialog1CallbackAsync(MessageBoxDialogMessage callbackMessage) {
-      return messenger.SendAsync(new MessageBoxDialogMessage { Header = "MessageBoxDialog1 Response", Message = callbackMessage.IsCancel ? "You Canceled!" : "Ok! Good to go!" });
-    }
-
-    #endregion Private Methods
-
   }
+
+  private Task OnInputBoxDialogExecuteAsync() {
+    return messenger.SendAsync(new InputBoxDialogMessage { Header = "Input A String", DefaultInput = "Some default text.", Message = "Please be so kind as to enter some text.", CallbackAsync = OnInputBoxDialogCallbackAsync });
+  }
+
+  private Task OnMessageBoxDialog1ExecuteAsync() {
+    return messenger.SendAsync(new MessageBoxDialogMessage { Header = "Message Box Test 1", Message = "Testing MessageBox Dialog with Cancel.", CancelText = "Cancel Boo!", HasCancel = true, CallbackAsync = OnMessageBoxDialog1CallbackAsync});
+  }
+
+  private Task OnMessageBoxDialog2ExecuteAsync() {
+    return messenger.SendAsync(new MessageBoxDialogMessage { Header = "Message Box Test 2", Message = "Testing MessageBox Dialog without Cancel.", OkText = "Ok Yay!" });
+  }
+
+  #endregion Commands
+
+  #region Private Methods
+
+  private Task OnInputBoxDialogCallbackAsync(InputBoxDialogMessage callbackMessage) {
+    string message = $"Your Input: {callbackMessage.Input}\n\nYour Action: {(callbackMessage.IsCancel ? "Cancel!" : "Ok!")}";
+
+    return messenger.SendAsync(new MessageBoxDialogMessage { Header = "InputBoxDialog Response", Message = message });
+  }
+
+  private Task OnMessageBoxDialog1CallbackAsync(MessageBoxDialogMessage callbackMessage) {
+    return messenger.SendAsync(new MessageBoxDialogMessage { Header = "MessageBoxDialog1 Response", Message = callbackMessage.IsCancel ? "You Canceled!" : "Ok! Good to go!" });
+  }
+
+  #endregion Private Methods
 
 }

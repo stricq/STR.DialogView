@@ -1,19 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.352
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Str.DialogView", "Str.DialogView\Str.DialogView.csproj", "{902C1476-1DA7-4F4F-A5CA-35A557B86A82}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{69EC931F-A593-426D-B264-289F9740E12A}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		Jenkinsfile = Jenkinsfile
 		ReadMe.md = ReadMe.md
 		STR.DialogView.sln.DotSettings = STR.DialogView.sln.DotSettings
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Str.DialogView.Tests", "Str.DialogView.Tests\Str.DialogView.Tests.csproj", "{4DA81BDC-78E0-40A6-B59E-A5968F0C3697}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{F589D964-493B-4A40-99E4-67160071F170}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build-publish.yml = .github\workflows\build-publish.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +38,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {69EC931F-A593-426D-B264-289F9740E12A}
+		{F589D964-493B-4A40-99E4-67160071F170} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {237E0DC0-7CCD-4E99-9D45-C014399EA7DA}

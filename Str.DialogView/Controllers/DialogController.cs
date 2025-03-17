@@ -19,9 +19,10 @@ using Str.MvvmCommon.Contracts;
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 
 
-namespace Str.DialogView.Controllers {
+namespace Str.DialogView.Controllers;
 
-  public class DialogController : IController, IMessageReceiver {
+
+public class DialogController : IController, IMessageReceiver {
 
     #region Private Fields
 
@@ -36,25 +37,25 @@ namespace Str.DialogView.Controllers {
     #region Constructor
 
     public DialogController(DialogViewModel viewModel, IMessenger messenger, IEnumerable<IDialogViewLocator> dialogViews) {
-      this.viewModel = viewModel;
+        this.viewModel = viewModel;
 
-      this.messenger = messenger;
+        this.messenger = messenger;
 
-      this.dialogViews = dialogViews;
+        this.dialogViews = dialogViews;
     }
 
     #endregion Constructor
 
     #region IController Implementation
 
-    public int InitializePriority { get; } = 100;
+    public int InitializePriority => 100;
 
     public Task InitializeAsync() {
-      viewModel.DialogViews.AddRange(dialogViews);
+        viewModel.DialogViews.AddRange(dialogViews);
 
-      RegisterMessages();
+        RegisterMessages();
 
-      return Task.CompletedTask;
+        return Task.CompletedTask;
     }
 
     #endregion IController Implementation
@@ -62,35 +63,33 @@ namespace Str.DialogView.Controllers {
     #region Messages
 
     private void RegisterMessages() {
-      messenger.Register<OpenDialogMessage>(this, OnOpenDialogAsync);
+        messenger.Register<OpenDialogMessage>(this, OnOpenDialogAsync);
 
-      messenger.Register<CloseDialogMessage>(this, OnCloseDialogAsync);
+        messenger.Register<CloseDialogMessage>(this, OnCloseDialogAsync);
     }
 
     private async Task OnOpenDialogAsync(OpenDialogMessage message) {
-      if (dialogViews.All(dv => dv.GetType() != message.DialogViewType)) return;
+        if (dialogViews.All(dv => dv.GetType() != message.DialogViewType)) return;
 
-      IDialogViewModel model = (dialogViews.First(dv => dv.GetType() == message.DialogViewType).DataContext as IDialogViewModel)!;
+        IDialogViewModel model = (dialogViews.First(dv => dv.GetType() == message.DialogViewType).DataContext as IDialogViewModel)!;
 
-      await messenger.SendAsync(new DialogVisibilityChangedMessage { IsVisible = true }).Fire();
+        await messenger.SendAsync(new DialogVisibilityChangedMessage { IsVisible = true }).Fire();
 
-      viewModel.DialogContent = model;
+        viewModel.DialogContent = model;
 
-      viewModel.DialogBorderColor = message.IsError ? Brushes.Red : Brushes.BlueViolet;
+        viewModel.DialogBorderColor = message.IsError ? Brushes.Red : Brushes.BlueViolet;
 
-      viewModel.Visibility = Visibility.Visible;
+        viewModel.Visibility = Visibility.Visible;
     }
 
     private async Task OnCloseDialogAsync(CloseDialogMessage message) {
-      viewModel.Visibility = Visibility.Collapsed;
+        viewModel.Visibility = Visibility.Collapsed;
 
-      viewModel.DialogContent = null;
+        viewModel.DialogContent = null;
 
-      await messenger.SendAsync(new DialogVisibilityChangedMessage { IsVisible = false }).Fire();
+        await messenger.SendAsync(new DialogVisibilityChangedMessage { IsVisible = false }).Fire();
     }
 
     #endregion Messages
-
-  }
 
 }

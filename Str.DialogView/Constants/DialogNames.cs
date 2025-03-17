@@ -1,15 +1,15 @@
-﻿
+﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Str.DialogView.Constants {
 
-  public static class DialogNames {
+namespace Str.DialogView.Constants;
 
-    public const string ErrorDialog = "STR.DialogView.ErrorDialog";
 
+[SuppressMessage("ReSharper", "UnusedType.Global",   Justification = "This is a library.")]
+[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "This is a library.")]
+public static class DialogNames {
+
+    public const string      ErrorDialog = "STR.DialogView.ErrorDialog";
     public const string MessageBoxDialog = "STR.DialogView.MessageBoxDialog";
-
-    public const string InputBoxDialog = "STR.DialogView.InputBoxDialog";
-
-  }
+    public const string   InputBoxDialog = "STR.DialogView.InputBoxDialog";
 
 }

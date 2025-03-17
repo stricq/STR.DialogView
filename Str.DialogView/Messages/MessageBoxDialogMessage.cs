@@ -11,21 +11,21 @@ namespace Str.DialogView.Messages;
 
 public class MessageBoxDialogMessage : MessageBase {
 
-  public bool IsCancel { get; set; }
+    public bool IsCancel { get; set; }
 
-  public required string Header { get; init; }
+    public required string Header { get; init; }
 
-  public required string Message { get; init; }
+    public required string Message { get; init; }
 
-  public string? OkText { get; init; }
+    public string? OkText { get; init; }
 
-  public string? CancelText { get; init; }
+    public string? CancelText { get; init; }
 
-  public bool HasCancel { get; init; }
+    public bool HasCancel { get; init; }
 
-  public Action<MessageBoxDialogMessage>? Callback { get; [UsedImplicitly] init; }
+    public Action<MessageBoxDialogMessage>? Callback { get; [UsedImplicitly] init; }
 
-  public Func<MessageBoxDialogMessage, Task>? CallbackAsync { get; init; }
+    public Func<MessageBoxDialogMessage, Task>? CallbackAsync { get; init; }
 
 }
 
@@ -33,7 +33,7 @@ public class MessageBoxDialogMessage : MessageBase {
 [UsedImplicitly]
 public class MessageBoxDialogMessage<T> : MessageBoxDialogMessage {
 
-  [UsedImplicitly]
-  public required T State { get; init; }
+    [UsedImplicitly]
+    public required T State { get; init; }
 
 }

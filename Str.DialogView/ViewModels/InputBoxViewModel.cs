@@ -1,6 +1,4 @@
-﻿using System;
-
-using Str.DialogView.Contracts;
+﻿using Str.DialogView.Contracts;
 
 using Str.MvvmCommon.Core;
 using Str.MvvmCommon.Helpers;

@@ -21,6 +21,7 @@
         <RepositoryType>git</RepositoryType>
         <Nullable>enable</Nullable>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
